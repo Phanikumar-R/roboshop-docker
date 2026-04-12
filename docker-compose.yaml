@@ -13,7 +13,16 @@ services:
       container_name: user
       depends_on:
         - redis
-      
+    frontend:
+      build:
+        dockerfile: frontend.Dockerfile # it moves to frontend directory
+      image: joindevops/frontend:1.0.0 # docker build -t+
+      container_name: frontend
+      ports:
+        - "80:80"
+      depends_on:
+        - catalogue
+        - user
     mongodb:
        build: 
          dockerfile: mongodb.Dockerfile # it moves to mongodb directory
@@ -22,7 +31,7 @@ services:
     redis:
        image: redis:7.0
        container_name: redis
-       
+
 
 networks:
   default:
