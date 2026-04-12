@@ -6,12 +6,23 @@ services:
       container_name: catalogue
       depends_on:
         - mongodb
+    user:
+      build:
+        dockerfile: user.Dockerfile # it moves to user directory
+      image: joindevops/user:1.0.0 # docker build -t devopsskillup/user:1.0.0 .
+      container_name: user
+      depends_on:
+        - redis
       
     mongodb:
        build: 
          dockerfile: mongodb.Dockerfile # it moves to mongodb directory
        image: joindevops/mongodb:1.0.0 # docker build -t devopsskillup/mongodb:1.0.0 .
        container_name: mongodb
+    redis:
+       image: redis:7.0
+       container_name: redis
+       
 
 networks:
   default:
