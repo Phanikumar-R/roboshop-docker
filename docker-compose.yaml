@@ -20,7 +20,13 @@ services:
     - redis
     - catalogue
   
-  
+  shipping:
+    build: ./shipping
+    image: joindevops/shipping:1.0.0
+    container_name: shipping
+    depends_on:
+      - mysql
+      - cart
   frontend:
     build: ./frontend
     image: joindevops/frontend:1.0.0
