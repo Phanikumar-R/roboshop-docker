@@ -49,6 +49,13 @@ services:
     container_name: redis
     volumes:
     - redis:/data
+
+  mysql:
+    build: ./mysql
+    image: joindevops/mysql:1.0.0
+    container_name: mysql
+    volumes:
+    - mysql:/var/lib/mysql
  
  
 networks:
