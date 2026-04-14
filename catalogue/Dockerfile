@@ -23,7 +23,17 @@ COPY --from=builder /app/ /app/
 ENV MONGO="true" \
 MONGO_URL="mongodb://mongodb:27017/catalogue"
 # # execute the application
-CMD ["node", "server.js"]
+
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+
+RUN chown -R roboshop:roboshop /app
+
+USER roboshop
+
+CMD ["server.js"]
+
+# here node is command and server.js is the argument to node command, so we can use ENTRYPOINT to specify the command and CMD to specify the argument, this way we can override the argument at runtime if needed.
+ENTRYPOINT ["node"] 
 
 
 # Below block for building alpine image which is very small in size and has all the necessary dependencies to run node application
